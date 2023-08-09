@@ -78,7 +78,7 @@ This demo app showcases the versatility and capabilities of the `@txnlab/use-wal
 
 2. **Algorand Node Configuration**: This demo app connects to Algorand Mainnet. You can change the node configuration to connect to Testnet or Betanet, using [AlgoNode's public nodes](https://algonode.io/api/#free-as-in--algorand-api-access) or your own. Please note that currently only KMD, MyAlgo, and AlgoSigner support Betanet.
 
-3. **WalletConnect Support**: To support WalletConnect, you'll need to obtain a unique project ID. Obtain it by:
+3. **WalletConnect Support**: To integrate the WalletConnect provider, you'll need a unique project ID. Obtain it by:
    - Registering an account at [WalletConnect Cloud](https://cloud.walletconnect.com/)
    - Creating a new project within your account. Each app needs its own unique project ID.
 
