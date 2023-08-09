@@ -3,29 +3,33 @@ import { Fragment, useState } from 'react'
 import ConnectButton from '@/components/ConnectButton'
 import MenuHeader from '@/components/MenuHeader'
 import Provider from '@/components/Provider'
+import { useWallet } from '@txnlab/use-wallet'
 
 export default function ConnectMenu() {
   const [open, setOpen] = useState(false)
 
-  // useWallet hook
+  const { providers, activeAddress } = useWallet()
 
   const renderProviders = () => {
-    // Map providers
-    return (
-      <>
-        <Provider id="defly" name="Defly" />
-        <Provider id="pera" name="Pera" />
-        <Provider id="daffi" name="Daffi" />
-        <Provider id="walletconnect" name="WalletConnect" />
-        <Provider id="exodus" name="Exodus" />
-      </>
-    )
+    return providers?.map((provider) => (
+      <Provider
+        key={provider.metadata.id}
+        id={provider.metadata.id}
+        name={provider.metadata.name}
+        icon={provider.metadata.icon}
+        onConnect={provider.connect}
+        onDisconnect={provider.disconnect}
+        onSetActive={provider.setActiveProvider}
+        isConnected={provider.isConnected}
+        isActive={provider.isActive}
+        accounts={provider.accounts}
+      />
+    ))
   }
 
   return (
     <>
-      {/* Pass active address */}
-      <ConnectButton setOpen={setOpen} activeAddress={undefined} />
+      <ConnectButton setOpen={setOpen} activeAddress={activeAddress} />
 
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -56,8 +60,7 @@ export default function ConnectMenu() {
                   <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
                     <div className="flex h-full flex-col overflow-y-scroll bg-zinc-900 shadow-xl">
                       <MenuHeader
-                        // Pass active address
-                        activeAddress={undefined}
+                        activeAddress={activeAddress}
                         setOpen={setOpen}
                         title="Connect a wallet to get started"
                         subtitle="Select the wallet provider you would like to connect to from the options below."

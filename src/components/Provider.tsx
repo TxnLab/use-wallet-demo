@@ -1,6 +1,7 @@
 import { CheckIcon, XMarkIcon, BoltIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import { classNames } from '@/utils'
+import { Account } from '@txnlab/use-wallet'
 
 interface ProviderProps {
   id: string
@@ -11,7 +12,7 @@ interface ProviderProps {
   onSetActive?: () => void
   isConnected?: boolean
   isActive?: boolean
-  accounts?: any[]
+  accounts?: Account[]
 }
 
 export default function Provider({

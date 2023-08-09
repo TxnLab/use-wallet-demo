@@ -9,13 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blockshake/defly-connect": "^1.1.5",
+    "@daffiwallet/connect": "^1.0.3",
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
+    "@perawallet/connect": "^1.3.1",
     "@tailwindcss/forms": "^0.5.4",
     "@tanstack/react-query": "^4.32.6",
+    "@txnlab/use-wallet": "^2.1.0",
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "@walletconnect/modal-sign-html": "^2.6.1",
     "algosdk": "^2.4.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",

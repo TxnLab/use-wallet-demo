@@ -1,3 +1,4 @@
+import { useWallet } from '@txnlab/use-wallet'
 import algosdk from 'algosdk'
 import { useState } from 'react'
 import algodClient from '@/lib/algodClient'
@@ -7,16 +8,17 @@ type Status = 'idle' | 'signing' | 'sending' | 'success' | 'error'
 export default function SendTransaction() {
   const [status, setStatus] = useState<Status>('idle')
 
-  // useWallet hook
+  const { activeAddress, signTransactions, sendTransactions } = useWallet()
 
   const sendTransaction = async () => {
     try {
-      // Check for active address
+      if (!activeAddress) {
+        throw new Error('No active address')
+      }
 
-      // Set sender and receiver to active address
-      const from = ''
-      const to = ''
-
+      // Zero ALGO send to activeAddress
+      const from = activeAddress
+      const to = activeAddress
       const amount = 0
 
       const suggestedParams = await algodClient.getTransactionParams().do()
@@ -33,12 +35,14 @@ export default function SendTransaction() {
       setStatus('signing')
 
       // Sign transactions
+      const signedTransaction = await signTransactions([encodedTransaction])
 
       setStatus('sending')
 
       // Send transactions
+      const { id } = await sendTransactions(signedTransaction)
 
-      // Log transaction id
+      console.log(`Success! Transaction ID: ${id}`)
 
       setStatus('success')
 
@@ -67,8 +71,7 @@ export default function SendTransaction() {
     }
   }
 
-  // Check for active address
-  if (true) {
+  if (!activeAddress) {
     return null
   }
 
