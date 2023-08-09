@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
+    "@tailwindcss/forms": "^0.5.4",
+    "@tanstack/react-query": "^4.32.6",
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "algosdk": "^2.4.0",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "big.js": "^6.2.1",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "next": "13.4.13",
@@ -21,5 +28,11 @@
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.32.5",
+    "@types/big.js": "^6.2.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "3.0.1"
   }
 }
