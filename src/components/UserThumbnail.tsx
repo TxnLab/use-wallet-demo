@@ -13,12 +13,15 @@ export default function UserThumbnail({ address }: UserThumbnailProps) {
   const { data: accountInfo } = useQuery<AccountInfo>({
     queryKey: ['account', address],
     queryFn: async () => {
-      const response = await fetch(`/api/node/account?address=${address}`)
+      const response = await fetch(
+        `/api/node/account?address=${address}&exclude=all`
+      )
       const data = await response.json()
 
       return data
     },
-    enabled: !!address
+    enabled: !!address,
+    refetchInterval: 10000
   })
 
   const { data: nfd, isLoading } = useQuery({

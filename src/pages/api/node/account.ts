@@ -3,16 +3,22 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    const { address } = req.query
+    const { address, exclude } = req.query
 
     if (!address) {
       return res.status(400).json({ error: 'Address parameter is required' })
     }
 
+    if (typeof address !== 'string') {
+      return res.status(400).json({ error: 'Only one address is allowed' })
+    }
+
     try {
-      const accountInfo = await algodClient
-        .accountInformation(address as string)
-        .do()
+      const accountInfo =
+        typeof exclude === 'string'
+          ? await algodClient.accountInformation(address).exclude(exclude).do()
+          : await algodClient.accountInformation(address).do()
+
       return res.status(200).json(accountInfo)
     } catch (error) {
       console.error('Error fetching account information:', error)
