@@ -57,7 +57,18 @@ export default function UserThumbnail({ address }: UserThumbnailProps) {
 
   const renderName = () => {
     if (nfd) {
-      return nfd.name
+      return (
+        <>
+          <span className="relative -top-[1px]">{nfd.name}</span>
+          <span
+            aria-hidden="true"
+            className="block w-px h-5 bg-white/30 mx-2"
+          />
+          <span className="font-mono text-white/75 text-sm">
+            {truncateAddress(address, true)}
+          </span>
+        </>
+      )
     }
 
     return <span className="font-mono">{truncateAddress(address, true)}</span>
@@ -73,9 +84,9 @@ export default function UserThumbnail({ address }: UserThumbnailProps) {
 
   return (
     <div className="flex items-center">
-      <div>{renderThumbnail()}</div>
+      <div className="min-w-[4rem]">{renderThumbnail()}</div>
       <div className="ml-3">
-        <p className="text-lg font-medium text-white group-hover:text-white">
+        <p className="flex items-center flex-wrap text-lg font-medium text-white leading-6 group-hover:text-white">
           {renderName()}
         </p>
         {accountInfo?.amount && (
