@@ -20,9 +20,11 @@ export default function ConnectMenu() {
         onConnect={provider.connect}
         onDisconnect={provider.disconnect}
         onSetActive={provider.setActiveProvider}
+        onChangeAccount={provider.setActiveAccount}
         isConnected={provider.isConnected}
         isActive={provider.isActive}
         accounts={provider.accounts}
+        activeAddress={activeAddress}
       />
     ))
   }

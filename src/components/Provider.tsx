@@ -10,9 +10,11 @@ interface ProviderProps {
   onConnect?: () => void
   onDisconnect?: () => void
   onSetActive?: () => void
+  onChangeAccount?: (address: string) => void
   isConnected?: boolean
   isActive?: boolean
   accounts?: Account[]
+  activeAddress?: string
 }
 
 export default function Provider({
@@ -22,9 +24,11 @@ export default function Provider({
   onConnect,
   onDisconnect,
   onSetActive,
+  onChangeAccount,
   isConnected,
   isActive,
-  accounts
+  accounts,
+  activeAddress
 }: ProviderProps) {
   const handleSetActiveProvider = () => {
     if (isConnected) {
@@ -36,6 +40,12 @@ export default function Provider({
 
   const handleDisconnectProvider = () => {
     onDisconnect?.()
+  }
+
+  const handleSetActiveAccount = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    onChangeAccount?.(event.target.value)
   }
 
   const renderProviderIcon = () => {
@@ -125,6 +135,8 @@ export default function Provider({
                 <select
                   id={`${id}-active-account`}
                   className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white font-mono shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6 [&_*]:text-black"
+                  value={activeAddress}
+                  onChange={handleSetActiveAccount}
                 >
                   {accounts?.map((account) => (
                     <option key={account.address}>{account.address}</option>
