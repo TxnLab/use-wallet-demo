@@ -1,38 +1,48 @@
 import { useQuery } from '@tanstack/react-query'
+import axios, { type AxiosError } from 'axios'
 import Image from 'next/image'
 import AlgoSymbol from '@/components/AlgoSymbol'
 import LoadingDots from '@/components/LoadingDots'
-import { formatBalance, getAvatarURL, truncateAddress } from '@/utils'
+import {
+  formatBalance,
+  getAvatarURL,
+  shouldRetryQuery,
+  truncateAddress
+} from '@/utils'
 import type { AccountInfo } from '@/types/node'
+import type { NfdRecordThumbnail } from '@/types/nfd'
 
 interface UserThumbnailProps {
   address: string
 }
 
 export default function UserThumbnail({ address }: UserThumbnailProps) {
-  const { data: accountInfo } = useQuery<AccountInfo>({
+  const { data: accountInfo } = useQuery<AccountInfo, AxiosError>({
     queryKey: ['account', address],
     queryFn: async () => {
-      const response = await fetch(
+      const { data } = await axios.get(
         `/api/node/account?address=${address}&exclude=all`
       )
-      const data = await response.json()
-
       return data
     },
     enabled: !!address,
     refetchInterval: 10000
   })
 
-  const { data: nfd, isLoading } = useQuery({
+  const { data: nfd, isLoading } = useQuery<NfdRecordThumbnail, AxiosError>({
     queryKey: ['nfd', address],
     queryFn: async () => {
-      const response = await fetch(`/api/nfd/lookup?address=${address}`)
-      const data = await response.json()
-
+      const { data } = await axios.get(`/api/nfd/lookup?address=${address}`)
       return data
     },
-    enabled: !!address
+    enabled: !!address,
+    retry: (failureCount, error) => {
+      if (!shouldRetryQuery(error)) {
+        return false
+      }
+      return failureCount < 3
+    },
+    refetchOnWindowFocus: false
   })
 
   const renderThumbnail = () => {

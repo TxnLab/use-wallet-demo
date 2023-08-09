@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { matchesResponseStatus } from '@/utils/api'
 import type { NfdLookupResponse } from '@/types/nfd'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -10,6 +11,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(400).json({ error: 'Address parameter is required' })
     }
 
+    if (typeof address !== 'string') {
+      return res.status(400).json({ error: 'Only one address is allowed' })
+    }
+
     try {
       const { data } = await axios<NfdLookupResponse>({
         url: `https://api.nf.domains/nfd/lookup?address=${address}&view=thumbnail`,
@@ -17,7 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         headers: { 'Content-Type': 'application/json' }
       })
 
-      const match = data[address as string]
+      const match = data[address]
 
       if (!match) {
         return res.status(404).json({ error: 'NFD account not found' })
@@ -25,8 +30,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).json(match)
     } catch (error) {
-      console.error('Error performing reverse lookup:', error)
-      return res.status(500).json({ error: 'NFD reverse lookup failed' })
+      if (matchesResponseStatus(error, [403, 404])) {
+        res.status(404).json({ message: 'Matching NFD account not found' })
+      } else {
+        const errorMessage = (error as { message: string }).message
+        console.error('Error performing reverse lookup:', errorMessage)
+
+        res.status(500).json({
+          message: 'Error performing reverse lookup',
+          details: errorMessage
+        })
+      }
     }
   } else {
     return res.status(405).json({ error: 'Method not allowed' })
