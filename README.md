@@ -1,38 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UseWallet Next.js Demo - Proof of State Ep. 14
 
-## Getting Started
+This demo Next.js project was created to supplement a live-streamed interview on the Proof of State show, to demonstrate how to integrate the [@txnlab/use-wallet](https://github.com/TxnLab/use-wallet) library into a real-world Algorand application.
 
-First, run the development server:
+[<img src="proof-of-state-ep-14.webp" alt="Promo Image" width="640"/>](https://www.youtube.com/live/QH5mFD8RQ68?feature=share)
+
+### Stream Recording 🎬
+
+- [Watch on YouTube](https://www.youtube.com/live/QH5mFD8RQ68?feature=share)
+
+### Connect on Twitter
+
+- **Ryan Fox**: [@ryanRfox](https://twitter.com/ryanRfox)
+- **Doug Richar**: [@drichar](https://twitter.com/drichar)
+
+### Algorand Developers YouTube Channel
+
+- https://www.youtube.com/@algodevs/streams
+
+## ✨ Features
+
+- Configured to support [Defly](https://defly.app/), [Pera](https://perawallet.app/), [Daffi](https://www.daffi.me/), [Exodus](https://www.exodus.com/), and [WalletConnect](https://walletconnect.com/) providers
+- Demonstrates how `@txnlab/use-wallet` can be used to:
+  - Build a wallet menu with provider/account selection
+  - Connect to a wallet
+  - Sign transactions
+  - Send transactions
+- Shows balance of connected account, polled every 10 seconds
+- [NFDomains](https://app.nf.domains/) integration displaying avatar and NFD name of the connected account (if one exists)
+- Uses the following technologies:
+  - [TypeScript](https://www.typescriptlang.org/)
+  - [Tailwind CSS](https://tailwindcss.com/)
+  - [Axios](https://axios-http.com/)
+  - [Tanstack Query](https://tanstack.com/query/latest)
+
+## 🔗 Live Demo
+
+- https://use-wallet-demo.vercel.app/
+
+## 💻 Local Development
+
+### Prerequisites
+
+- Node.js v14.18.0 or higher
+- [pnpm](https://pnpm.io/)
+
+### Installation
+
+1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/TxnLab/use-wallet-demo.git
+```
+
+2. Change to the project directory
+
+```bash
+cd use-wallet-demo
+```
+
+3. Install dependencies
+
+```bash
+pnpm install
+```
+
+4. Start the development server
+
+```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### How to Use
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+This demo app showcases the versatility and capabilities of the `@txnlab/use-wallet` library. You can experiment by tweaking various aspects of the configuration:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. **Wallet Providers**: Add or remove wallet providers
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+2. **Algorand Node Configuration**: This demo app connects to Algorand Mainnet. You can change the node configuration to connect to Testnet or Betanet, using [AlgoNode's public nodes](https://algonode.io/api/#free-as-in--algorand-api-access) or your own. Please note that currently only KMD, MyAlgo, and AlgoSigner support Betanet.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. **WalletConnect Support**: To support WalletConnect, you'll need to obtain a unique project ID. Obtain it by:
+   - Registering an account at [WalletConnect Cloud](https://cloud.walletconnect.com/)
+   - Creating a new project within your account. Each app needs its own unique project ID.
 
-## Learn More
+Full installation and configuration instructions for `@txnlab/use-wallet` can be found in the official repository: [TxnLab/use-wallet](https://github.com/TxnLab/use-wallet). This will guide you through additional features supported by the library that might not be present in this basic example.
 
-To learn more about Next.js, take a look at the following resources:
+## Contact
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you have any questions, suggestions, or would like to collaborate, feel free to get in touch through the following channels:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Discord**:
+  - New to NFD's Discord? Join using [this invite link](https://discord.gg/w6vSwG5bFK)
+  - Already a member? Directly jump to the [#use-wallet channel](https://discord.com/channels/925410112368156732/1039592016704721019)
+- **Twitter**: [@drichar](https://twitter.com/drichar)
+- **GitHub Discussions**: [Discussion section of use-wallet repository](https://github.com/TxnLab/use-wallet/discussions)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Your feedback and contributions are always welcome!
