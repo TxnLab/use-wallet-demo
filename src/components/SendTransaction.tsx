@@ -42,13 +42,13 @@ export default function SendTransaction() {
 
       setStatus('success')
 
-      setTimeout(() => setStatus('idle'), 5000)
+      setTimeout(() => setStatus('idle'), 10000)
     } catch (error) {
       console.error(error)
 
       setStatus('error')
 
-      setTimeout(() => setStatus('idle'), 5000)
+      setTimeout(() => setStatus('idle'), 10000)
     }
   }
 

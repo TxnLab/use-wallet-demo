@@ -11,7 +11,7 @@ interface ProviderProps {
   onSetActive?: () => void
   isConnected?: boolean
   isActive?: boolean
-  accounts?: string[]
+  accounts?: any[]
 }
 
 export default function Provider({
@@ -28,8 +28,9 @@ export default function Provider({
   const handleSetActiveProvider = () => {
     if (isConnected) {
       onSetActive?.()
+    } else {
+      onConnect?.()
     }
-    onConnect?.()
   }
 
   const handleDisconnectProvider = () => {
@@ -125,7 +126,7 @@ export default function Provider({
                   className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white font-mono shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6 [&_*]:text-black"
                 >
                   {accounts?.map((account) => (
-                    <option key={account}>{account}</option>
+                    <option key={account.address}>{account.address}</option>
                   ))}
                 </select>
               </div>
@@ -153,7 +154,9 @@ export default function Provider({
       >
         <div className="absolute -inset-x-2 -inset-y-3 z-0 bg-zinc-800/50 scale-90 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-3 sm:rounded-2xl" />
         <div className="flex items-center w-full text-left gap-x-4 rounded-md px-2 py-1 sm:p-2">
-          {renderProviderIcon()}
+          <div className="h-10 w-10 sm:h-12 sm:w-12 z-20 flex-none rounded-full overflow-hidden">
+            {renderProviderIcon()}
+          </div>
           {renderProviderName()}
           {isConnected && (
             <span
