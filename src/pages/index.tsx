@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
 import SendTransaction from '@/components/SendTransaction'
@@ -8,6 +9,10 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <main className={classNames('relative flex-1 isolate', inter.className)}>
+      <Head>
+        <title>UseWallet Demo | Proof of State</title>
+      </Head>
+
       <Header />
 
       <div className="px-6 pt-12 sm:pt-24 lg:px-8">
