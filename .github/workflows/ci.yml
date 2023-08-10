@@ -1,0 +1,46 @@
+name: CI Checks
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  checks:
+    name: Run Checks & Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Linter
+        run: pnpm run lint
+
+      - name: Check Prettier
+        run: pnpm run prettier
+
+      - name: TypeScript Type Check
+        run: pnpm run type-check
+
+      - name: Run test suite
+        run: pnpm test
+
+      - name: Build
+        run: pnpm run build

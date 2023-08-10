@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "pnpm exec prettier . --check",
+    "prettier:fix": "pnpm exec prettier . --write",
+    "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
