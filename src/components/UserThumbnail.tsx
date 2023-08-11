@@ -1,49 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
-import axios, { type AxiosError } from 'axios'
 import Image from 'next/image'
 import AlgoSymbol from '@/components/AlgoSymbol'
 import LoadingDots from '@/components/LoadingDots'
-import {
-  formatBalance,
-  getAvatarURL,
-  shouldRetryQuery,
-  truncateAddress
-} from '@/utils'
-import type { AccountInfo } from '@/types/node'
-import type { NfdRecordThumbnail } from '@/types/nfd'
+import useAccountInfo from '@/hooks/useAccountInfo'
+import useNfdLookup from '@/hooks/useNfdLookup'
+import { formatBalance, getAvatarURL, truncateAddress } from '@/utils'
 
 interface UserThumbnailProps {
   address: string
 }
 
 export default function UserThumbnail({ address }: UserThumbnailProps) {
-  const { data: accountInfo } = useQuery<AccountInfo, AxiosError>({
-    queryKey: ['account', address],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `/api/node/account?address=${address}&exclude=all`
-      )
-      return data
-    },
-    enabled: !!address,
-    refetchInterval: 10000
-  })
+  const { data: accountInfo } = useAccountInfo(address)
 
-  const { data: nfd, isLoading } = useQuery<NfdRecordThumbnail, AxiosError>({
-    queryKey: ['nfd', address],
-    queryFn: async () => {
-      const { data } = await axios.get(`/api/nfd/lookup?address=${address}`)
-      return data
-    },
-    enabled: !!address,
-    retry: (failureCount, error) => {
-      if (!shouldRetryQuery(error)) {
-        return false
-      }
-      return failureCount < 3
-    },
-    refetchOnWindowFocus: false
-  })
+  const { data: nfd, isLoading } = useNfdLookup(address)
 
   const renderThumbnail = () => {
     if (nfd) {
@@ -96,7 +65,7 @@ export default function UserThumbnail({ address }: UserThumbnailProps) {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" data-testid="user-thumbnail">
       <div className="min-w-[4rem]">{renderThumbnail()}</div>
       <div className="ml-3">
         <p className="flex items-center flex-wrap text-lg font-medium text-white leading-6 group-hover:text-white">
