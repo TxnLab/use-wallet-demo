@@ -1,7 +1,7 @@
 import { CheckIcon, XMarkIcon, BoltIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
 import { classNames } from '@/utils'
-import { Account } from '@txnlab/use-wallet'
+import type { Account } from '@txnlab/use-wallet'
 
 interface ProviderProps {
   id: string
@@ -159,7 +159,7 @@ export default function Provider({
   }
 
   return (
-    <div className="h-12 mx-2 sm:h-auto sm:mx-0">
+    <div className="h-12 mx-2 sm:h-auto sm:mx-0" data-testid="provider">
       <button
         type="button"
         className="group relative w-full rounded-lg"

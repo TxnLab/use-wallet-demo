@@ -2,5 +2,4 @@
 export type AccountInfo = {
   address: string
   amount: number
-  'min-balance': number
 }

@@ -15,7 +15,10 @@ export default function PartyTime({ show }: PartyTimeProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-[60] pointer-events-none">
+    <div
+      className="fixed inset-0 z-[60] pointer-events-none"
+      data-testid="confetti"
+    >
       <Confetti
         width={width}
         height={height}
