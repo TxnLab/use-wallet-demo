@@ -53,9 +53,9 @@ export const mockAccount = (
 // Composable Wallet Provider
 export const mockProvider = (
   id: PROVIDER_ID,
+  accounts: Account[] = [],
   isActive: boolean = false,
-  isConnected: boolean = false,
-  accounts: Account[] = []
+  isConnected: boolean = false
 ): Provider => ({
   metadata: mockMetadata(id),
   accounts,
@@ -94,7 +94,7 @@ export const mockProviders = (
       accounts.push(mockAccount(providerId))
     }
 
-    providers.push(mockProvider(providerId, isActive, isConnected, accounts))
+    providers.push(mockProvider(providerId, accounts, isActive, isConnected))
   })
 
   return providers
