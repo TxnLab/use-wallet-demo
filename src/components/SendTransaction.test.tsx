@@ -61,7 +61,7 @@ describe('SendTransaction', () => {
 
   it('successfully sends a transaction', async () => {
     mockSignTransactions.mockResolvedValueOnce({ txId: 'mock_transaction_id' })
-    mockSendTransactions.mockResolvedValueOnce({ txId: 'mock_transaction_id' })
+    mockSendTransactions.mockResolvedValueOnce({ id: 'mock_transaction_id' })
 
     render(<SendTransaction />)
 
