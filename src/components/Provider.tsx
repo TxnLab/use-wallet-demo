@@ -54,7 +54,7 @@ export default function Provider({
         <Image
           className="object-cover opacity-10"
           src="/img/provider-icon.png"
-          alt=""
+          alt="Default icon"
           width={48}
           height={48}
         />
@@ -64,7 +64,7 @@ export default function Provider({
     return (
       <Image
         src={icon}
-        alt="provider icon"
+        alt={`Icon for ${name} provider`}
         className="object-cover"
         width={48}
         height={48}
@@ -94,7 +94,7 @@ export default function Provider({
           aria-label={`${name} provider is active`}
           className="sm:hidden flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center z-10 rounded-full overflow-hidden text-teal-500 bg-teal-800 shadow-md shadow-zinc-800/5 transition border border-teal-600/50"
         >
-          <BoltIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+          <CheckIcon className="h-4 w-4 sm:h-5 sm:w-5" />
         </span>
 
         <button
@@ -115,6 +115,8 @@ export default function Provider({
   }
 
   if (isActive) {
+    const showAccountMenu = accounts && accounts?.length > 0
+
     return (
       <div className="-my-3 bg-zinc-800 py-3 sm:px-3 sm:-mx-3 sm:rounded-2xl">
         <div className="flex items-center w-full text-left gap-x-4 rounded-md px-4 py-1 sm:p-2">
@@ -126,7 +128,7 @@ export default function Provider({
         </div>
 
         <div className="mt-4 px-4 sm:px-2 space-y-4 pb-2">
-          {accounts?.length && (
+          {showAccountMenu && (
             <div className="mt-2">
               <label htmlFor={`${id}-active-account`} className="sr-only">
                 Active Account
