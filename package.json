@@ -22,7 +22,7 @@
     "@tailwindcss/forms": "^0.5.4",
     "@tanstack/react-query": "^4.32.6",
     "@txnlab/use-wallet": "^2.1.0",
-    "@types/node": "20.4.8",
+    "@types/node": "20.17.0",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
     "@walletconnect/modal-sign-html": "^2.6.1",
